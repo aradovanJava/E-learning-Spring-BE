@@ -1,5 +1,6 @@
 package hr.algebra.e_learning.security;
 
+import hr.algebra.e_learning.repository.StudentRepository;
 import hr.algebra.e_learning.service.security.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,17 +24,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthFilter authFilter;
+    private final StudentRepository userRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
+        return new UserDetailsServiceImpl(userRepository);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/login", "/auth/refreshToken").permitAll()
+                .requestMatchers("/auth/**").permitAll()
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/course/**").authenticated()

@@ -4,8 +4,10 @@ import hr.algebra.e_learning.dto.security.AuthRequestDTO;
 import hr.algebra.e_learning.dto.security.AuthResponseDTO;
 import hr.algebra.e_learning.dto.security.RefreshTokenRequestDTO;
 
-public interface AuthService {
+public interface StudentService {
     AuthResponseDTO login(AuthRequestDTO authRequest);
+
+    AuthResponseDTO register(AuthRequestDTO authRequestDTO);
 
     AuthResponseDTO refreshToken(RefreshTokenRequestDTO request);
 }
