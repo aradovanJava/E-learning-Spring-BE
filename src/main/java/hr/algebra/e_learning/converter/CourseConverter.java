@@ -8,11 +8,17 @@ import org.springframework.stereotype.Component;
 public class CourseConverter implements EntityDTOConverter<Course, CourseDTO> {
     @Override
     public CourseDTO toDto(Course entity) {
-        return new CourseDTO(entity.getId(), entity.getTitle());
+        return CourseDTO.builder()
+                .id(entity.getId())
+                .title(entity.getTitle())
+                .build();
     }
 
     @Override
     public Course toEntity(CourseDTO dto) {
-        return new Course(dto.id(), dto.title());
+        return Course.builder()
+                .id(dto.id())
+                .title(dto.title())
+                .build();
     }
 }

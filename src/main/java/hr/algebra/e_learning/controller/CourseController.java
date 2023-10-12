@@ -2,6 +2,7 @@ package hr.algebra.e_learning.controller;
 
 import hr.algebra.e_learning.dto.CourseDTO;
 import hr.algebra.e_learning.service.CourseService;
+import hr.algebra.e_learning.service.EnrollmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/course")
 public class CourseController {
+
     private final CourseService courseService;
+    private final EnrollmentService enrollmentService;
 
     @GetMapping("/all")
     public ResponseEntity<List<CourseDTO>> getAll() {
@@ -37,5 +40,10 @@ public class CourseController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable final Long id) {
         courseService.deleteById(id);
+    }
+
+    @GetMapping("/enroll/{studentId}/{courseId}")
+    public void enrollCourse(@PathVariable final Long studentId, @PathVariable final Long courseId) {
+        enrollmentService.enrollStudentInTheCourse(studentId, courseId);
     }
 }

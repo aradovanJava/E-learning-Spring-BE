@@ -1,6 +1,6 @@
 package hr.algebra.e_learning.service;
 
-import hr.algebra.e_learning.converter.StudentConverter;
+import hr.algebra.e_learning.converter.StudentAuthConverter;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;
 import hr.algebra.e_learning.dto.security.AuthResponseDTO;
 import hr.algebra.e_learning.dto.security.RefreshTokenRequestDTO;
@@ -22,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository userRepository;
     private final JwtGeneratorService jwtGeneratorService;
     private final RefreshTokenService refreshTokenService;
-    private final StudentConverter userConverter;
+    private final StudentAuthConverter userConverter;
 
     @Override
     public AuthResponseDTO login(final AuthRequestDTO authRequest) {

@@ -4,6 +4,7 @@ import lombok.Builder;
 
 import java.util.List;
 
+
 @Builder
-public record CourseDTO(Long id, String title, List<StudentDTO> students) {
+public record StudentDTO(Long id, String username, List<CourseDTO> courses) {
 }
