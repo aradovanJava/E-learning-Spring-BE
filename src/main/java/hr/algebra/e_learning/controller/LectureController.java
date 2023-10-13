@@ -1,6 +1,7 @@
 package hr.algebra.e_learning.controller;
 
-import hr.algebra.e_learning.dto.LectureDTO;
+import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
+import hr.algebra.e_learning.dto.lecture.LectureDTO;
 import hr.algebra.e_learning.service.LectureService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class LectureController {
     }
 
     @PostMapping("")
-    public void save(@RequestBody final LectureDTO lectureDTO) {
+    public void save(@RequestBody final CreateLectureDTO lectureDTO) {
         lectureService.save(lectureDTO);
     }
 

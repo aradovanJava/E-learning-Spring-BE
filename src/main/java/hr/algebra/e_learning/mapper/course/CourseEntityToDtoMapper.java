@@ -1,7 +1,7 @@
 package hr.algebra.e_learning.mapper.course;
 
 import hr.algebra.e_learning.mapper.Mapper;
-import hr.algebra.e_learning.dto.CourseDTO;
+import hr.algebra.e_learning.dto.course.CourseDTO;
 import hr.algebra.e_learning.entity.Course;
 import org.springframework.stereotype.Component;
 

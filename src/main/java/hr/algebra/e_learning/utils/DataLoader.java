@@ -1,14 +1,15 @@
 package hr.algebra.e_learning.utils;
 
-import hr.algebra.e_learning.dto.CourseDTO;
-import hr.algebra.e_learning.dto.LectureDTO;
+import hr.algebra.e_learning.dto.course.CreateCourseDTO;
+import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;
 import hr.algebra.e_learning.service.CourseService;
-import hr.algebra.e_learning.service.LectureService;
 import hr.algebra.e_learning.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -16,36 +17,63 @@ public class DataLoader implements CommandLineRunner {
 
     private final CourseService courseService;
     private final StudentService userService;
-    private final LectureService lectureService;
 
     @Override
     public void run(String... args) {
         System.out.println("About to load all courses and users...");
 
-        final CourseDTO spring = new CourseDTO(1L, "Spring Boot course", "Spring");
-        final CourseDTO flutter = new CourseDTO(2L, "Flutter course", "Flutter");
-        final CourseDTO swiftUI = new CourseDTO(3L, "SwiftUI course", "SwiftUI");
-
-        final LectureDTO introLecture = LectureDTO
+        final CreateLectureDTO introLecture = CreateLectureDTO
                 .builder()
                 .title("Spring Boot Intro")
                 .description("Spring Boot Intro lecture description")
                 .courseId(1L)
                 .build();
 
-        final LectureDTO dataJpaLecture = LectureDTO
+        final CreateLectureDTO dataJpaLecture = CreateLectureDTO
                 .builder()
                 .title("Spring Data JPA")
                 .description("Spring Data JPA lecture description")
                 .courseId(1L)
                 .build();
 
+        final CreateLectureDTO flutterIntro = CreateLectureDTO
+                .builder()
+                .title("Flutter intro")
+                .description("In Flutter, everything is a widget")
+                .courseId(2L)
+                .build();
+
+        final CreateLectureDTO swiftUIIntro = CreateLectureDTO
+                .builder()
+                .title("SwiftUI intro")
+                .description("From Apple Watch to Apple Vision Pro.")
+                .courseId(3L)
+                .build();
+
+        final CreateCourseDTO spring = CreateCourseDTO.builder()
+                .title("Spring Boot course")
+                .description("Learn how to create REST API on a clean and easy way.")
+                .lectures(List.of(introLecture, dataJpaLecture))
+                .build();
+
+        final CreateCourseDTO flutter = CreateCourseDTO.builder()
+                .title("Flutter course")
+                .description("Find out why everyone is falling in love with this framework.")
+                .lectures(List.of(flutterIntro))
+                .build();
+
+        final CreateCourseDTO swiftUI = CreateCourseDTO.builder()
+                .title("SwiftUI course")
+                .description("Created by Apple. It says everything. ;)")
+                .lectures(List.of(swiftUIIntro))
+                .build();
+
         courseService.save(spring);
         courseService.save(flutter);
         courseService.save(swiftUI);
 
-        lectureService.save(introLecture);
-        lectureService.save(dataJpaLecture);
+        /*lectureService.save(introLecture);
+        lectureService.save(dataJpaLecture);*/
 
         final AuthRequestDTO user = new AuthRequestDTO("admin", "algebra");
 

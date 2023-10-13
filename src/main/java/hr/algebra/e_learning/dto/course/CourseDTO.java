@@ -1,4 +1,4 @@
-package hr.algebra.e_learning.dto;
+package hr.algebra.e_learning.dto.course;
 
 import lombok.Builder;
 

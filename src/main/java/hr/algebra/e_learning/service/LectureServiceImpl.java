@@ -1,8 +1,10 @@
 package hr.algebra.e_learning.service;
 
-import hr.algebra.e_learning.dto.LectureDTO;
+import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
+import hr.algebra.e_learning.dto.lecture.LectureDTO;
 import hr.algebra.e_learning.entity.Course;
 import hr.algebra.e_learning.entity.Lecture;
+import hr.algebra.e_learning.mapper.lecture.CreateLectureDtoToLectureEntityMapper;
 import hr.algebra.e_learning.mapper.lecture.LectureDtoToEntityMapper;
 import hr.algebra.e_learning.mapper.lecture.LectureEntityToDtoMapper;
 import hr.algebra.e_learning.repository.CourseRepository;
@@ -20,23 +22,24 @@ public class LectureServiceImpl implements LectureService{
 
     private final LectureRepository lectureRepository;
     private final CourseRepository courseRepository;
-    private final LectureDtoToEntityMapper dtoToEntityMapper;
-    private final LectureEntityToDtoMapper entityToDtoMapper;
+    private final LectureDtoToEntityMapper lectureDtoToEntityMapper;
+    private final LectureEntityToDtoMapper lectureEntityToDtoMapper;
+    private final CreateLectureDtoToLectureEntityMapper createLectureDtoToLectureEntityMapper;
 
     @Override
     public List<LectureDTO> getAllForCourse(final Long id) {
-        return lectureRepository.findAllByCourseId(id).stream().map(entityToDtoMapper::convert).toList();
+        return lectureRepository.findAllByCourseId(id).stream().map(lectureEntityToDtoMapper::convert).toList();
     }
 
     @Override
     public Optional<LectureDTO> getById(final Long id) {
-        return lectureRepository.findById(id).map(entityToDtoMapper::convert);
+        return lectureRepository.findById(id).map(lectureEntityToDtoMapper::convert);
     }
 
     @Override
-    public void save(final LectureDTO lectureDTO) {
-        final Lecture newLecture = dtoToEntityMapper.convert(lectureDTO);
-        final Course course = courseRepository.findById(lectureDTO.courseId()).orElseThrow(() -> new NoResultException("No course found..."));
+    public void save(final CreateLectureDTO lectureDTO) {
+        final Lecture newLecture = createLectureDtoToLectureEntityMapper.convert(lectureDTO);
+        final Course course = courseRepository.findById(lectureDTO.getCourseId()).orElseThrow(() -> new NoResultException("No course found..."));
 
         newLecture.setCourse(course);
         lectureRepository.save(newLecture);
@@ -44,7 +47,7 @@ public class LectureServiceImpl implements LectureService{
 
     @Override
     public void delete(final LectureDTO lectureDTO) {
-        final Lecture lecture = dtoToEntityMapper.convert(lectureDTO);
+        final Lecture lecture = lectureDtoToEntityMapper.convert(lectureDTO);
         lectureRepository.delete(lecture);
     }
 
