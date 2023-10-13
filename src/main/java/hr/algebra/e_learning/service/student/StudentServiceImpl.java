@@ -1,4 +1,4 @@
-package hr.algebra.e_learning.service;
+package hr.algebra.e_learning.service.student;
 
 import hr.algebra.e_learning.mapper.student.AuthRequestDtoToStudentMapper;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;

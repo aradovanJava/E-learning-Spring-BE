@@ -1,4 +1,4 @@
-package hr.algebra.e_learning.service;
+package hr.algebra.e_learning.service.course;
 
 import hr.algebra.e_learning.entity.Course;
 import hr.algebra.e_learning.entity.Student;

@@ -2,9 +2,10 @@ package hr.algebra.e_learning.utils;
 
 import hr.algebra.e_learning.dto.course.CreateCourseDTO;
 import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
+import hr.algebra.e_learning.dto.quiz.CreateQuizDTO;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;
-import hr.algebra.e_learning.service.CourseService;
-import hr.algebra.e_learning.service.StudentService;
+import hr.algebra.e_learning.service.course.CourseService;
+import hr.algebra.e_learning.service.student.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,11 +23,24 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) {
         System.out.println("About to load all courses and users...");
 
+        final CreateQuizDTO quizIntro = CreateQuizDTO
+                .builder()
+                .title("Quiz Intro #1")
+                .lectureId(1L)
+                .build();
+
+        final CreateQuizDTO quizJpa = CreateQuizDTO
+                .builder()
+                .title("Quiz JPA #1")
+                .lectureId(2L)
+                .build();
+
         final CreateLectureDTO introLecture = CreateLectureDTO
                 .builder()
                 .title("Spring Boot Intro")
                 .description("Spring Boot Intro lecture description")
                 .courseId(1L)
+                .quizzes(List.of(quizIntro))
                 .build();
 
         final CreateLectureDTO dataJpaLecture = CreateLectureDTO
@@ -34,6 +48,7 @@ public class DataLoader implements CommandLineRunner {
                 .title("Spring Data JPA")
                 .description("Spring Data JPA lecture description")
                 .courseId(1L)
+                .quizzes(List.of(quizJpa))
                 .build();
 
         final CreateLectureDTO flutterIntro = CreateLectureDTO
@@ -56,7 +71,7 @@ public class DataLoader implements CommandLineRunner {
                 .lectures(List.of(introLecture, dataJpaLecture))
                 .build();
 
-        final CreateCourseDTO flutter = CreateCourseDTO.builder()
+/*        final CreateCourseDTO flutter = CreateCourseDTO.builder()
                 .title("Flutter course")
                 .description("Find out why everyone is falling in love with this framework.")
                 .lectures(List.of(flutterIntro))
@@ -66,14 +81,11 @@ public class DataLoader implements CommandLineRunner {
                 .title("SwiftUI course")
                 .description("Created by Apple. It says everything. ;)")
                 .lectures(List.of(swiftUIIntro))
-                .build();
+                .build();*/
 
         courseService.save(spring);
-        courseService.save(flutter);
-        courseService.save(swiftUI);
-
-        /*lectureService.save(introLecture);
-        lectureService.save(dataJpaLecture);*/
+/*        courseService.save(flutter);
+        courseService.save(swiftUI);*/
 
         final AuthRequestDTO user = new AuthRequestDTO("admin", "algebra");
 

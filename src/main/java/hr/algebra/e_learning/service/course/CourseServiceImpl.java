@@ -1,4 +1,4 @@
-package hr.algebra.e_learning.service;
+package hr.algebra.e_learning.service.course;
 
 import hr.algebra.e_learning.dto.course.CourseDTO;
 import hr.algebra.e_learning.dto.course.CreateCourseDTO;
@@ -10,6 +10,7 @@ import hr.algebra.e_learning.mapper.course.CourseEntityToDtoMapper;
 import hr.algebra.e_learning.mapper.course.CreateCourseDtoToCourseEntityMapper;
 import hr.algebra.e_learning.repository.CourseRepository;
 import hr.algebra.e_learning.repository.StudentRepository;
+import hr.algebra.e_learning.service.lecture.LectureService;
 import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final StudentRepository studentRepository;
+
     private final LectureService lectureService;
 
     private final CourseEntityToDtoMapper courseEntityToDtoMapper;

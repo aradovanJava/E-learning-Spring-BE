@@ -2,8 +2,8 @@ package hr.algebra.e_learning.controller;
 
 import hr.algebra.e_learning.dto.course.CourseDTO;
 import hr.algebra.e_learning.dto.course.CreateCourseDTO;
-import hr.algebra.e_learning.service.CourseService;
-import hr.algebra.e_learning.service.EnrollmentService;
+import hr.algebra.e_learning.service.course.CourseService;
+import hr.algebra.e_learning.service.course.EnrollmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

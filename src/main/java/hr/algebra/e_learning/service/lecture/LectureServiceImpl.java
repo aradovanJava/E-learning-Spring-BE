@@ -1,7 +1,8 @@
-package hr.algebra.e_learning.service;
+package hr.algebra.e_learning.service.lecture;
 
 import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
 import hr.algebra.e_learning.dto.lecture.LectureDTO;
+import hr.algebra.e_learning.dto.quiz.CreateQuizDTO;
 import hr.algebra.e_learning.entity.Course;
 import hr.algebra.e_learning.entity.Lecture;
 import hr.algebra.e_learning.mapper.lecture.CreateLectureDtoToLectureEntityMapper;
@@ -9,6 +10,7 @@ import hr.algebra.e_learning.mapper.lecture.LectureDtoToEntityMapper;
 import hr.algebra.e_learning.mapper.lecture.LectureEntityToDtoMapper;
 import hr.algebra.e_learning.repository.CourseRepository;
 import hr.algebra.e_learning.repository.LectureRepository;
+import hr.algebra.e_learning.service.quiz.QuizService;
 import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class LectureServiceImpl implements LectureService{
 
     private final LectureRepository lectureRepository;
     private final CourseRepository courseRepository;
+
+    private final QuizService quizService;
+
     private final LectureDtoToEntityMapper lectureDtoToEntityMapper;
     private final LectureEntityToDtoMapper lectureEntityToDtoMapper;
     private final CreateLectureDtoToLectureEntityMapper createLectureDtoToLectureEntityMapper;
@@ -42,7 +47,12 @@ public class LectureServiceImpl implements LectureService{
         final Course course = courseRepository.findById(lectureDTO.getCourseId()).orElseThrow(() -> new NoResultException("No course found..."));
 
         newLecture.setCourse(course);
-        lectureRepository.save(newLecture);
+        final Lecture savedLecture = lectureRepository.save(newLecture);
+
+        for (final CreateQuizDTO quizDTO : lectureDTO.getQuizzes()) {
+            quizDTO.setLectureId(savedLecture.getId());
+            quizService.save(quizDTO);
+        }
     }
 
     @Override

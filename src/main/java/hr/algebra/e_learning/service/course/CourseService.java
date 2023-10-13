@@ -1,4 +1,4 @@
-package hr.algebra.e_learning.service;
+package hr.algebra.e_learning.service.course;
 
 import hr.algebra.e_learning.dto.course.CourseDTO;
 import hr.algebra.e_learning.dto.course.CreateCourseDTO;

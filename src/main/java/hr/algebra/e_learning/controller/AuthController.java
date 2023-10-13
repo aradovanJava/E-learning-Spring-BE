@@ -3,7 +3,7 @@ package hr.algebra.e_learning.controller;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;
 import hr.algebra.e_learning.dto.security.AuthResponseDTO;
 import hr.algebra.e_learning.dto.security.RefreshTokenRequestDTO;
-import hr.algebra.e_learning.service.StudentService;
+import hr.algebra.e_learning.service.student.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

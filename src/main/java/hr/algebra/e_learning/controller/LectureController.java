@@ -2,7 +2,7 @@ package hr.algebra.e_learning.controller;
 
 import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
 import hr.algebra.e_learning.dto.lecture.LectureDTO;
-import hr.algebra.e_learning.service.LectureService;
+import hr.algebra.e_learning.service.lecture.LectureService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
