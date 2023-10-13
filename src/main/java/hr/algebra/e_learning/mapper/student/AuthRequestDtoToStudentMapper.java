@@ -1,18 +1,15 @@
-package hr.algebra.e_learning.converter;
+package hr.algebra.e_learning.mapper.student;
 
+import hr.algebra.e_learning.mapper.Mapper;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;
 import hr.algebra.e_learning.entity.Student;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StudentAuthConverter implements EntityDTOConverter<Student, AuthRequestDTO> {
-    @Override
-    public AuthRequestDTO toDto(Student entity) {
-        return new AuthRequestDTO(entity.getUsername(), entity.getPassword());
-    }
+public class AuthRequestDtoToStudentMapper implements Mapper<AuthRequestDTO, Student> {
 
     @Override
-    public Student toEntity(AuthRequestDTO dto) {
+    public Student convert(AuthRequestDTO dto) {
         return Student.builder()
                 .username(dto.username())
                 .password(dto.password())

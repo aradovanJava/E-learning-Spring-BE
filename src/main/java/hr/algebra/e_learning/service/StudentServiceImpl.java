@@ -1,10 +1,10 @@
 package hr.algebra.e_learning.service;
 
-import hr.algebra.e_learning.converter.StudentAuthConverter;
+import hr.algebra.e_learning.mapper.student.AuthRequestDtoToStudentMapper;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;
 import hr.algebra.e_learning.dto.security.AuthResponseDTO;
 import hr.algebra.e_learning.dto.security.RefreshTokenRequestDTO;
-import hr.algebra.e_learning.entity.RefreshToken;
+import hr.algebra.e_learning.entity.security.RefreshToken;
 import hr.algebra.e_learning.entity.Student;
 import hr.algebra.e_learning.repository.StudentRepository;
 import hr.algebra.e_learning.service.security.JwtGeneratorService;
@@ -22,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository userRepository;
     private final JwtGeneratorService jwtGeneratorService;
     private final RefreshTokenService refreshTokenService;
-    private final StudentAuthConverter userConverter;
+    private final AuthRequestDtoToStudentMapper authRequestDtoToStudentMapper;
 
     @Override
     public AuthResponseDTO login(final AuthRequestDTO authRequest) {
@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
             throw new RuntimeException("The user already exits...");
         }
 
-        final Student newUser = userConverter.toEntity(authRequest);
+        final Student newUser = authRequestDtoToStudentMapper.convert(authRequest);
         userRepository.save(newUser);
 
         return generateToken(authRequest);

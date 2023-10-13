@@ -21,6 +21,8 @@ public class Course {
 
     private String title;
 
+    private String description;
+
     @ManyToMany
     @JoinTable(
             name = "course_student",

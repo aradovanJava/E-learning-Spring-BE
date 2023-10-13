@@ -1,6 +1,6 @@
 package hr.algebra.e_learning.service.security;
 
-import hr.algebra.e_learning.entity.RefreshToken;
+import hr.algebra.e_learning.entity.security.RefreshToken;
 
 import java.util.Optional;
 

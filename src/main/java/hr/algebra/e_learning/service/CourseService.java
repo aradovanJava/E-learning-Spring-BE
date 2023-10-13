@@ -11,4 +11,5 @@ public interface CourseService {
     void save(CourseDTO courseDto);
     void delete(CourseDTO courseDto);
     void deleteById(Long id);
+    List<CourseDTO> getAllForStudent(Long id);
 }

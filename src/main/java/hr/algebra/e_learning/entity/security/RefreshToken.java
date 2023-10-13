@@ -1,4 +1,4 @@
-package hr.algebra.e_learning.entity;
+package hr.algebra.e_learning.entity.security;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

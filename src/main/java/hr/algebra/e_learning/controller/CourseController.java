@@ -46,4 +46,9 @@ public class CourseController {
     public void enrollCourse(@PathVariable final Long studentId, @PathVariable final Long courseId) {
         enrollmentService.enrollStudentInTheCourse(studentId, courseId);
     }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<CourseDTO>> getAllCoursesForStudent(@PathVariable final Long studentId) {
+        return ResponseEntity.ok(courseService.getAllForStudent(studentId));
+    }
 }

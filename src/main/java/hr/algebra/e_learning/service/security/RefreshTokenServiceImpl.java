@@ -1,8 +1,8 @@
 package hr.algebra.e_learning.service.security;
 
-import hr.algebra.e_learning.entity.RefreshToken;
+import hr.algebra.e_learning.entity.security.RefreshToken;
 import hr.algebra.e_learning.exception.TokenExpirationException;
-import hr.algebra.e_learning.repository.RefreshTokenRepository;
+import hr.algebra.e_learning.repository.security.RefreshTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

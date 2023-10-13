@@ -1,6 +1,6 @@
-package hr.algebra.e_learning.repository;
+package hr.algebra.e_learning.repository.security;
 
-import hr.algebra.e_learning.entity.RefreshToken;
+import hr.algebra.e_learning.entity.security.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
