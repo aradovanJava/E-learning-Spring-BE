@@ -1,5 +1,6 @@
 package hr.algebra.e_learning.service.quiz;
 
+import hr.algebra.e_learning.dto.question.QuestionDTO;
 import hr.algebra.e_learning.dto.quiz.CreateQuizDTO;
 import hr.algebra.e_learning.dto.quiz.QuizDTO;
 import hr.algebra.e_learning.entity.Lecture;
@@ -9,6 +10,7 @@ import hr.algebra.e_learning.mapper.quiz.QuizDtoToEntityMapper;
 import hr.algebra.e_learning.mapper.quiz.QuizEntityToDtoMapper;
 import hr.algebra.e_learning.repository.LectureRepository;
 import hr.algebra.e_learning.repository.QuizRepository;
+import hr.algebra.e_learning.service.question.QuestionService;
 import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class QuizServiceImpl implements QuizService {
 
     private final QuizRepository quizRepository;
     private final LectureRepository lectureRepository;
+
+    private final QuestionService questionService;
 
     private final QuizDtoToEntityMapper quizDtoToEntityMapper;
     private final QuizEntityToDtoMapper quizEntityToDtoMapper;
@@ -43,7 +47,12 @@ public class QuizServiceImpl implements QuizService {
         final Lecture lecture = lectureRepository.findById(quizDTO.getLectureId()).orElseThrow(() -> new NoResultException("No lecture found..."));
 
         newQuiz.setLecture(lecture);
-        quizRepository.save(newQuiz);
+        final Quiz savedQuiz = quizRepository.save(newQuiz);
+
+        for (final QuestionDTO questionDTO : quizDTO.getQuestions()) {
+            questionDTO.setQuizId(savedQuiz.getId());
+            questionService.save(questionDTO);
+        }
     }
 
     @Override

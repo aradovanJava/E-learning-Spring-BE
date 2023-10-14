@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class StudentDtoToEntityMapper implements Mapper<StudentDTO, Student> {
     @Override
-    public Student convert(StudentDTO dto) {
+    public Student convert(final StudentDTO dto) {
         final List<Course> courseList = getConvertedCourses(dto);
         return Student.builder()
                 .id(dto.id())

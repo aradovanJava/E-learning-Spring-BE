@@ -2,6 +2,7 @@ package hr.algebra.e_learning.utils;
 
 import hr.algebra.e_learning.dto.course.CreateCourseDTO;
 import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
+import hr.algebra.e_learning.dto.question.QuestionDTO;
 import hr.algebra.e_learning.dto.quiz.CreateQuizDTO;
 import hr.algebra.e_learning.dto.security.AuthRequestDTO;
 import hr.algebra.e_learning.service.course.CourseService;
@@ -23,16 +24,38 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) {
         System.out.println("About to load all courses and users...");
 
+        final QuestionDTO firstQuestion = QuestionDTO
+                .builder()
+                .questionText("What is the best course in this semester?")
+                .option1("Spring")
+                .option2("Or Spring")
+                .option3("Or maybe Spring")
+                .correctOption4("Definitely Spring")
+                .quizId(1L)
+                .build();
+
+        final QuestionDTO secondQuestion = QuestionDTO
+                .builder()
+                .questionText("Will I pass this course?")
+                .option1("No")
+                .option2("Maybe")
+                .option3("Yes")
+                .correctOption4("Oh yes!")
+                .quizId(2L)
+                .build();
+
         final CreateQuizDTO quizIntro = CreateQuizDTO
                 .builder()
                 .title("Quiz Intro #1")
                 .lectureId(1L)
+                .questions(List.of(firstQuestion))
                 .build();
 
         final CreateQuizDTO quizJpa = CreateQuizDTO
                 .builder()
                 .title("Quiz JPA #1")
                 .lectureId(2L)
+                .questions(List.of(secondQuestion))
                 .build();
 
         final CreateLectureDTO introLecture = CreateLectureDTO

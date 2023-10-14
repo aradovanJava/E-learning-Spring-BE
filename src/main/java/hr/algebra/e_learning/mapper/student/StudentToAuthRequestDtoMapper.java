@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class StudentToAuthRequestDtoMapper implements Mapper<Student, AuthRequestDTO> {
 
     @Override
-    public AuthRequestDTO convert(Student entity) {
+    public AuthRequestDTO convert(final Student entity) {
         return AuthRequestDTO.builder()
                 .username(entity.getUsername())
                 .password(entity.getPassword())

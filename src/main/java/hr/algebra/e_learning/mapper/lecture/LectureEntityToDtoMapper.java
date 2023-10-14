@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LectureEntityToDtoMapper implements Mapper<Lecture, LectureDTO> {
 
     @Override
-    public LectureDTO convert(Lecture entity) {
+    public LectureDTO convert(final Lecture entity) {
         return LectureDTO.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())

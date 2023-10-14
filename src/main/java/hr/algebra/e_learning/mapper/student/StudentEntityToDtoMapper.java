@@ -12,7 +12,7 @@ import java.util.List;
 public class StudentEntityToDtoMapper implements Mapper<Student, StudentDTO> {
 
     @Override
-    public StudentDTO convert(Student entity) {
+    public StudentDTO convert(final Student entity) {
         final List<CourseDTO> courseDtoList = getConvertedCourses(entity);
         return StudentDTO.builder()
                 .id(entity.getId())
@@ -21,7 +21,7 @@ public class StudentEntityToDtoMapper implements Mapper<Student, StudentDTO> {
                 .build();
     }
 
-    private List<CourseDTO> getConvertedCourses(Student entity) {
+    private List<CourseDTO> getConvertedCourses(final Student entity) {
         return entity.getCourses().stream().map(
                 (course) -> CourseDTO.builder()
                         .id(course.getId())

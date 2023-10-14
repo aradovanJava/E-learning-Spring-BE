@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class CreateQuizDtoToEntityMapper implements Mapper<CreateQuizDTO, Quiz> {
 
     @Override
-    public Quiz convert(CreateQuizDTO dto) {
+    public Quiz convert(final CreateQuizDTO dto) {
         return Quiz.builder()
                 .title(dto.getTitle())
                 .build();

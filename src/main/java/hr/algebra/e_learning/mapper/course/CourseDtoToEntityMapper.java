@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseDtoToEntityMapper implements Mapper<CourseDTO, Course> {
     @Override
-    public Course convert(CourseDTO dto) {
+    public Course convert(final CourseDTO dto) {
         return Course.builder()
                 .id(dto.id())
                 .title(dto.title())

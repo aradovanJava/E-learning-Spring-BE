@@ -14,17 +14,25 @@ import org.hibernate.annotations.OnDeleteAction;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Quiz {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    private String questionText;
+
+    private String option1;
+
+    private String option2;
+
+    private String option3;
+
+    private String correctOption4;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "lecture_id", nullable = false)
+    @JoinColumn(name = "quiz_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Lecture lecture;
+    private Quiz quiz;
 }
