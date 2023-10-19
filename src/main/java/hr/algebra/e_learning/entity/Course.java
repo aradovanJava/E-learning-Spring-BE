@@ -30,4 +30,11 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private List<Student> students;
+
+    @OneToOne(
+            mappedBy = "course",
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    private Progress progress; //Make it list @OneToMany
 }

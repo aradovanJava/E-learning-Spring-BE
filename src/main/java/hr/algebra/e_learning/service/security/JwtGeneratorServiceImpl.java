@@ -19,23 +19,23 @@ public class JwtGeneratorServiceImpl implements JwtGeneratorService {
     private static final String SECRET = "357638792F423F4528482B4D6251655468576D5A7133743677397A2443264629";
 
     @Override
-    public String extractUsername(String token) {
+    public String extractUsername(final String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     @Override
-    public Date extractExpiration(String token) {
+    public Date extractExpiration(final String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
     @Override
-    public String generateToken(String username) {
+    public String generateToken(final String username) {
         final Map<String, Object> claims = new HashMap<>();
         return createToken(claims, username);
     }
 
     @Override
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(final String token, final UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
@@ -53,12 +53,12 @@ public class JwtGeneratorServiceImpl implements JwtGeneratorService {
                 .getBody();
     }
 
-    private String createToken(Map<String, Object> claims, String username) {
+    private String createToken(final Map<String, Object> claims, final String username) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 5)) //5 minutes
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 45)) //45 minutes
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -68,7 +68,7 @@ public class JwtGeneratorServiceImpl implements JwtGeneratorService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    private Boolean isTokenExpired(String token) {
+    private Boolean isTokenExpired(final String token) {
         return extractExpiration(token).before(new Date());
     }
 }

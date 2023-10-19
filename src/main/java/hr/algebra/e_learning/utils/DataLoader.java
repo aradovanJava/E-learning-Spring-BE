@@ -24,6 +24,10 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) {
         System.out.println("About to load all courses and users...");
 
+        final AuthRequestDTO user = new AuthRequestDTO("admin", "algebra");
+
+        userService.register(user);
+
         final QuestionDTO firstQuestion = QuestionDTO
                 .builder()
                 .questionText("What is the best course in this semester?")
@@ -74,45 +78,13 @@ public class DataLoader implements CommandLineRunner {
                 .quizzes(List.of(quizJpa))
                 .build();
 
-        final CreateLectureDTO flutterIntro = CreateLectureDTO
-                .builder()
-                .title("Flutter intro")
-                .description("In Flutter, everything is a widget")
-                .courseId(2L)
-                .build();
-
-        final CreateLectureDTO swiftUIIntro = CreateLectureDTO
-                .builder()
-                .title("SwiftUI intro")
-                .description("From Apple Watch to Apple Vision Pro.")
-                .courseId(3L)
-                .build();
-
         final CreateCourseDTO spring = CreateCourseDTO.builder()
                 .title("Spring Boot course")
                 .description("Learn how to create REST API on a clean and easy way.")
                 .lectures(List.of(introLecture, dataJpaLecture))
                 .build();
 
-/*        final CreateCourseDTO flutter = CreateCourseDTO.builder()
-                .title("Flutter course")
-                .description("Find out why everyone is falling in love with this framework.")
-                .lectures(List.of(flutterIntro))
-                .build();
-
-        final CreateCourseDTO swiftUI = CreateCourseDTO.builder()
-                .title("SwiftUI course")
-                .description("Created by Apple. It says everything. ;)")
-                .lectures(List.of(swiftUIIntro))
-                .build();*/
-
         courseService.save(spring);
-/*        courseService.save(flutter);
-        courseService.save(swiftUI);*/
-
-        final AuthRequestDTO user = new AuthRequestDTO("admin", "algebra");
-
-        userService.register(user);
 
         System.out.println("Successfully loaded all data!");
     }

@@ -23,9 +23,9 @@ public class StudentDtoToEntityMapper implements Mapper<StudentDTO, Student> {
     private List<Course> getConvertedCourses(final StudentDTO studentDTO) {
         return studentDTO.courses().stream().map(
                 (courseDTO) -> Course.builder()
-                        .id(courseDTO.id())
-                        .title(courseDTO.title())
-                        .description(courseDTO.description())
+                        .id(courseDTO.getId())
+                        .title(courseDTO.getTitle())
+                        .description(courseDTO.getDescription())
                         .build()
         ).toList();
     }
