@@ -26,7 +26,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
         final Progress progress = createProgressForEnrolledCourse(course, student);
 
-        course.setProgress(progress);
+        course.getProgress().add(progress);
         course.getStudents().add(student);
         student.getCourses().add(course);
 

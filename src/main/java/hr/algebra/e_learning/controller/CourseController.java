@@ -2,6 +2,7 @@ package hr.algebra.e_learning.controller;
 
 import hr.algebra.e_learning.dto.course.CourseDTO;
 import hr.algebra.e_learning.dto.course.CreateCourseDTO;
+import hr.algebra.e_learning.dto.course.StudentCourseDTO;
 import hr.algebra.e_learning.service.course.CourseService;
 import hr.algebra.e_learning.service.course.EnrollmentService;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,11 @@ public class CourseController {
         return courseService.getById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/all/{studentId}")
+    public ResponseEntity<List<StudentCourseDTO>> getAllForStudent(@PathVariable final Long studentId) {
+        return ResponseEntity.ok(courseService.getAllForStudent(studentId));
+    }
+
     @PostMapping("")
     public void save(@RequestBody final CreateCourseDTO courseDTO) {
         courseService.save(courseDTO);
@@ -46,10 +52,5 @@ public class CourseController {
     @GetMapping("/enroll/{studentId}/{courseId}")
     public void enrollCourse(@PathVariable final Long studentId, @PathVariable final Long courseId) {
         enrollmentService.enrollStudentInTheCourse(studentId, courseId);
-    }
-
-    @GetMapping("/student/{studentId}")
-    public ResponseEntity<List<CourseDTO>> getAllCoursesForStudent(@PathVariable final Long studentId) {
-        return ResponseEntity.ok(courseService.getAllForStudent(studentId));
     }
 }

@@ -31,10 +31,10 @@ public class Course {
     )
     private List<Student> students;
 
-    @OneToOne(
+    @OneToMany(
             mappedBy = "course",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private Progress progress; //Make it list @OneToMany
+    private List<Progress> progress;
 }

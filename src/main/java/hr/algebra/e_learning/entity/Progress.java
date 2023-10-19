@@ -17,12 +17,12 @@ public class Progress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne //Make it ManyToOne
+    @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @JsonIgnore
     private Course course;
 
-    @OneToOne //Make it ManyToOne
+    @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     @JsonIgnore
     private Student student;

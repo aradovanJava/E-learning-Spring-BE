@@ -2,15 +2,19 @@ package hr.algebra.e_learning.service.course;
 
 import hr.algebra.e_learning.dto.course.CourseDTO;
 import hr.algebra.e_learning.dto.course.CreateCourseDTO;
+import hr.algebra.e_learning.dto.course.StudentCourseDTO;
 import hr.algebra.e_learning.dto.lecture.CreateLectureDTO;
+import hr.algebra.e_learning.dto.progress.ProgressDTO;
 import hr.algebra.e_learning.entity.Course;
 import hr.algebra.e_learning.entity.Student;
 import hr.algebra.e_learning.mapper.course.CourseDtoToEntityMapper;
 import hr.algebra.e_learning.mapper.course.CourseEntityToDtoMapper;
+import hr.algebra.e_learning.mapper.course.CourseEntityToStudentCourseDtoMapper;
 import hr.algebra.e_learning.mapper.course.CreateCourseDtoToCourseEntityMapper;
 import hr.algebra.e_learning.repository.CourseRepository;
 import hr.algebra.e_learning.repository.StudentRepository;
 import hr.algebra.e_learning.service.lecture.LectureService;
+import hr.algebra.e_learning.service.progress.ProgressService;
 import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,10 +30,12 @@ public class CourseServiceImpl implements CourseService {
     private final StudentRepository studentRepository;
 
     private final LectureService lectureService;
+    private final ProgressService progressService;
 
     private final CourseEntityToDtoMapper courseEntityToDtoMapper;
     private final CourseDtoToEntityMapper courseDtoToEntityMapper;
     private final CreateCourseDtoToCourseEntityMapper createCourseDtoToCourseEntityMapper;
+    private final CourseEntityToStudentCourseDtoMapper courseEntityToStudentCourseDtoMapper;
 
     @Override
     public List<CourseDTO> getAll() {
@@ -64,11 +70,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseDTO> getAllForStudent(Long id) {
+    public List<StudentCourseDTO> getAllForStudent(Long studentId) {
         final List<Course> courseList = studentRepository
-                .findById(id)
+                .findById(studentId)
                 .map(Student::getCourses)
                 .orElseThrow(() -> new NoResultException("No courses found."));
-        return courseList.stream().map(courseEntityToDtoMapper::convert).toList();
+
+        return courseList.stream().map((course) -> {
+            final Optional<ProgressDTO> courseStudentProgress = progressService.getProgressByCourseIdAndStudentId(course.getId(), studentId);
+            return courseEntityToStudentCourseDtoMapper.convert(course, courseStudentProgress.get());
+        }).toList();
     }
 }

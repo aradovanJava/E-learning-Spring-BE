@@ -8,6 +8,8 @@ import hr.algebra.e_learning.mapper.progress.ProgressEntityToDtoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class CourseEntityToDtoMapper implements Mapper<Course, CourseDTO> {
@@ -16,12 +18,12 @@ public class CourseEntityToDtoMapper implements Mapper<Course, CourseDTO> {
 
     @Override
     public CourseDTO convert(final Course entity) {
-        final ProgressDTO progressDto = progressEntityToDtoMapper.convert(entity.getProgress());
+        final List<ProgressDTO> progressList = entity.getProgress().stream().map(progressEntityToDtoMapper::convert).toList();
         return CourseDTO.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .description(entity.getDescription())
-                .progress(progressDto)
+                .progressList(progressList)
                 .build();
     }
 }

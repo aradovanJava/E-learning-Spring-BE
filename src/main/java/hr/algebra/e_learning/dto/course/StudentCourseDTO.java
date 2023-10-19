@@ -6,15 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseDTO {
+public class StudentCourseDTO {
     private Long id;
     private String title;
     private String description;
-    private List<ProgressDTO> progressList;
+    private ProgressDTO progress;
 }
